@@ -14,6 +14,8 @@ namespace Endpoints.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration configuration;
+        private bool isAuthorized;
+        private bool startMotor = false;
 
         public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
@@ -46,10 +48,37 @@ namespace Endpoints.Controllers
 
             if("2A519929" == uID)
             {
-                return this.Accepted();
+                return this.Ok(SecurityCodes.generateNewCode());
             }
 
             return this.NotFound();
+        }
+
+        public IActionResult CheckSecurityCode([FromForm] string securityCode)
+        {
+            if(SecurityCodes.codes.FirstOrDefault(s => s == securityCode) != null)
+            {
+                isAuthorized = true;
+                return this.RedirectToPage("Home/Tools");
+            }
+            
+            return this.Unauthorized();
+        }
+
+        public IActionResult IsMotorActivated()
+        {
+            return Ok(startMotor);
+        }
+
+        public IActionResult StartMotor()
+        {
+            if (!isAuthorized)
+            {
+                return this.Unauthorized();
+            }
+
+            startMotor = true;
+            return Ok();
         }
     }
 }
