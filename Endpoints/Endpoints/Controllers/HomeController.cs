@@ -1,5 +1,6 @@
 ﻿using Endpoints.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,16 +13,8 @@ namespace Endpoints.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IConfiguration configuration;
         private bool isAuthorized;
-        private bool startMotor = false;
-
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
-        {
-            _logger = logger;
-            this.configuration = configuration;
-        }
+        public static bool startMotor = false;
 
         public IActionResult Index()
         {
@@ -54,12 +47,21 @@ namespace Endpoints.Controllers
             return this.NotFound();
         }
 
-        public IActionResult CheckSecurityCode([FromForm] string securityCode)
+        public IActionResult CheckSecurityCode([FromForm] string securityCode, [FromForm] bool startMotorOn)
         {
             if(SecurityCodes.codes.FirstOrDefault(s => s == securityCode) != null)
             {
                 isAuthorized = true;
-                return this.RedirectToPage("Home/Tools");
+                if (startMotorOn)
+                {
+                    startMotor = true;
+                }
+                else
+                {
+                    startMotor = false;
+                }
+                
+                //return this.Redirect(linkGenerator.GetPathByPage("/Home/Index", null, null));
             }
             
             return this.Unauthorized();
