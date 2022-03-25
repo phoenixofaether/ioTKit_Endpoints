@@ -12,7 +12,7 @@ namespace Endpoints
         public static string generateNewCode()
         {
             Random rnd = new Random();
-            string num = rnd.Next(1000000).ToString();
+            string num = rnd.Next(99999, 1000000).ToString();
             codes.Add(num);
             return num;
         }
