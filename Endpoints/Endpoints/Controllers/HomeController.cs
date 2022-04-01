@@ -15,6 +15,7 @@ namespace Endpoints.Controllers
     {
         private bool isAuthorized;
         public static bool startMotor = false;
+        private static readonly string keyCardCode = "B9D45363";
 
         public IActionResult Index()
         {
@@ -39,17 +40,16 @@ namespace Endpoints.Controllers
                 return this.BadRequest();
             }
 
-            if("2A519929" == uID)
+            if(keyCardCode == uID)
             {
                 return this.Ok(SecurityCodes.generateNewCode());
             }
 
             return this.NotFound();
         }
-
         public IActionResult CheckSecurityCode([FromForm] string securityCode, [FromForm] bool startMotorOn)
         {
-            if(SecurityCodes.codes.FirstOrDefault(s => s == securityCode) != null)
+            if (SecurityCodes.codes.FirstOrDefault(s => s == securityCode) != null)
             {
                 isAuthorized = true;
                 if (startMotorOn)
@@ -60,10 +60,9 @@ namespace Endpoints.Controllers
                 {
                     startMotor = false;
                 }
-                
-                //return this.Redirect(linkGenerator.GetPathByPage("/Home/Index", null, null));
+                return this.Ok();
             }
-            
+
             return this.Unauthorized();
         }
 
