@@ -22,16 +22,17 @@ Ein Dienst, welcher gewisse Schnittstellen, welche von anderen Objekten konsumie
 
 1. Iotkit v3 mit Computer verbinden
 2. Motor bei M01 einstecken, NFC/RFID sensor einstecken
-3. unter mbed_app.json dein Wlan eingeben (Achtung die Applikation muss im gleichen Netzwerk sein)
-4. Programm mit MBed Studio starten
-5. file Solution-Ordner\.vs\SolutionName\config\applicationhost.config öffnen
-6. `<binding protocol="http" bindingInformation="*:8750:localhost" />` mit `<binding protocol="http" bindingInformation="<deine Ip>:8750:*" /> <binding protocol="http" bindingInformation="*:8750:0.0.0.0" />` erweitern
-7. Endpoints.sln in Visual Studio als Administrator öffnen
-8. Unter HomeController "keyCardCode" eigener Keycard Code eingeben
-9. Private & Public Firewall deaktivieren
-10. `netsh http add urlacl url=http://<deine Ip>:8750/ user=everyone`
-11. IIS Express starten
-12. MBed Studio Projekt starten
+3. LB02.zip entpacken und mit MbedStudio öffnen
+4. unter mbed_app.json dein Wlan eingeben (Achtung die Applikation muss im gleichen Netzwerk sein)
+5. Programm mit MBed Studio starten
+6. file Solution-Ordner\.vs\SolutionName\config\applicationhost.config öffnen
+7. `<binding protocol="http" bindingInformation="*:8750:localhost" />` mit `<binding protocol="http" bindingInformation="<deine Ip>:8750:*" /> <binding protocol="http" bindingInformation="*:8750:0.0.0.0" />` erweitern
+8. Endpoints.sln in Visual Studio als Administrator öffnen
+9. Unter HomeController "keyCardCode" eigener Keycard Code eingeben
+10. Private & Public Firewall deaktivieren
+11. `netsh http add urlacl url=http://<deine Ip>:8750/ user=everyone`
+12. IIS Express starten
+13. MBed Studio Projekt starten
 
 ## Reflexion David Oberkalmsteiner
 
